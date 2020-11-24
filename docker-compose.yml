@@ -1,0 +1,63 @@
+version: '3.7'
+x-common-variables: &common-variables
+  NODE_ENV: local
+  DB_MAIN_HOST: mysql
+  DB_MAIN_USER: root
+  DB_MAIN_PASS: root
+  DB_MAIN_NAME: main_db
+services:
+  local:
+    build:
+      context: .
+    image: plataforma5-backend
+    volumes:
+      - ./src:/app/src
+    container_name: plataforma5-backend_local
+    environment: *common-variables
+    depends_on:
+      - mysql
+    ports:
+      - '3000:3000'
+      - '9229:9229'
+    tty: true
+    entrypoint: ['npm', 'run', 'local']
+  test:
+    build:
+      context: .
+    image: plataforma5-backend
+    volumes:
+      - ./src:/app/src
+      - ./coverage/unit:/app/coverage
+    container_name: plataforma5-backend_test
+    environment: *common-variables
+    tty: true
+    entrypoint: ['npm', 'test']
+  integration-test:
+    build:
+      context: .
+    image: plataforma5-backend
+    volumes:
+      - ./src:/app/src
+      - ./coverage/integration:/app/coverage
+    container_name: plataforma5-backend_integration
+    environment:
+      <<: *common-variables
+      NODE_ENV: test
+    depends_on:
+      - mysql
+    tty: true
+    entrypoint: ['npm', 'run', 'integration']
+  mysql:
+    image: mysql:5.7
+    container_name: plataforma5-database_mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/schema-test.sql:/docker-entrypoint-initdb.d/schema-test.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: testpass
+networks:
+  default:
+    name: plataforma5-backend

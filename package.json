@@ -1,0 +1,26 @@
+{
+  "name": "bootcamp-project",
+  "version": "0.1.0",
+  "description": "bootcamp-project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "local": "nodemon --inspect=0.0.0.0:9229 src/index.js",
+    "test": "jest --coverage",
+    "integration": "jest -c jest.config.integration.js --runInBand --detectOpenHandles"
+  },
+  "author": "Juan Ignacio Paz",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mysql": "^2.17.1",
+    "xid-js": "^1.0.1"
+  }
+}
