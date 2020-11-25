@@ -25,12 +25,12 @@ CREATE TABLE IF NOT EXISTS `User` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-LOCK TABLES `User` WRITE;
+/* LOCK TABLES `User` WRITE;
 INSERT INTO `User` (id,userName,firstName,lastName,email,password,role)
 values
 (1,'Pepe','Jose','Perez','pepe@jose.com','12345678','admin');
 
-UNLOCK TABLES;
+UNLOCK TABLES; */
 
 CREATE TABLE IF NOT EXISTS `Cart` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -41,12 +41,12 @@ CREATE TABLE IF NOT EXISTS `Cart` (
   FOREIGN KEY (`userId`) REFERENCES User(`id`))
 ENGINE = InnoDB;
 
-LOCK TABLES `Cart` WRITE;
+/* LOCK TABLES `Cart` WRITE;
 INSERT INTO `Cart` (id,userId,estado)
 values
 (1,1,'activo');
 
-UNLOCK TABLES;
+UNLOCK TABLES; */
 
 CREATE TABLE IF NOT EXISTS `Product` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -58,12 +58,12 @@ CREATE TABLE IF NOT EXISTS `Product` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-LOCK TABLES `Product` WRITE;
+/* LOCK TABLES `Product` WRITE;
 INSERT INTO `Product` (id,categoria,nombre,cantidad,descripcion)
 values
 (1,'Perfumeria','Axe',2,'Desodorante');
 
-UNLOCK TABLES;
+UNLOCK TABLES; */
 
 CREATE TABLE IF NOT EXISTS `CartProduct` (
   `cartId` INT NOT NULL,
@@ -74,12 +74,12 @@ CREATE TABLE IF NOT EXISTS `CartProduct` (
   )
 ENGINE = InnoDB;
 
-LOCK TABLES `CartProduct` WRITE;
+ /* LOCK TABLES `CartProduct` WRITE;
 INSERT INTO `CartProduct` (cartId,productId)
 values
 (1,1);
 
-UNLOCK TABLES;
+UNLOCK TABLES; */
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
