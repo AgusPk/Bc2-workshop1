@@ -1,4 +1,3 @@
--- MySQL Workbench Forward Engineering
 CREATE DATABASE main_db;
 USE main_db;
 
