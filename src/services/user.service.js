@@ -1,5 +1,5 @@
 const userDao = require("../daos/user.dao");
-const { encryptPassword, hashPassword } = require("../utils/encrypt-hash");
+const { encryptPassword } = require("../utils/encrypt-hash");
 
 const services = {
   getAll: async () => {
