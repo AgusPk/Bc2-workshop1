@@ -5,4 +5,4 @@ const productController = require("../controllers/product.controller");
 router.get(`/test`, productController.getProduct);
 router.post(`/testPost`, productController.createProduct);
 
-module.export = router;
+module.exports = router;

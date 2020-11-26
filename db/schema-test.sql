@@ -25,28 +25,40 @@ CREATE TABLE IF NOT EXISTS `User` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-/* LOCK TABLES `User` WRITE;
+LOCK TABLES `User` WRITE;
 INSERT INTO `User` (id,userName,firstName,lastName,email,password,role)
 values
 (1,'Pepe','Jose','Perez','pepe@jose.com','12345678','admin');
 
-UNLOCK TABLES; */
+INSERT INTO `User` (id,userName,firstName,lastName,email,password,role)
+values
+(6,'Pancho','Jose','Perez','pepe@jose.com','12345678','user');
+
+UNLOCK TABLES; 
 
 CREATE TABLE IF NOT EXISTS `Cart` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL ,
   `estado` ENUM('activo','cerrado'),
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-  FOREIGN KEY (`userId`) REFERENCES User(`id`))
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`userId`) REFERENCES User(`id`) ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-/* LOCK TABLES `Cart` WRITE;
+ LOCK TABLES `Cart` WRITE;
 INSERT INTO `Cart` (id,userId,estado)
 values
 (1,1,'activo');
 
-UNLOCK TABLES; */
+INSERT INTO `Cart` (id,userId,estado)
+values
+(2,1,'cerrado');
+
+INSERT INTO `Cart` (id,userId,estado)
+values
+(3,1,'cerrado');
+
+UNLOCK TABLES; 
 
 CREATE TABLE IF NOT EXISTS `Product` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -58,28 +70,27 @@ CREATE TABLE IF NOT EXISTS `Product` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-/* LOCK TABLES `Product` WRITE;
+ LOCK TABLES `Product` WRITE;
 INSERT INTO `Product` (id,categoria,nombre,cantidad,descripcion)
 values
 (1,'Perfumeria','Axe',2,'Desodorante');
 
-UNLOCK TABLES; */
+UNLOCK TABLES; 
 
 CREATE TABLE IF NOT EXISTS `CartProduct` (
   `cartId` INT NOT NULL,
   `productId` INT NOT NULL,
-  FOREIGN KEY (`cartId`) REFERENCES Cart(`id`),
+  FOREIGN KEY (`cartId`) REFERENCES Cart(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`productId`) REFERENCES Product(`id`),
-  PRIMARY KEY (`cartId`,`productId`),
-  )
+  PRIMARY KEY (`cartId`,`productId`))
 ENGINE = InnoDB;
 
- /* LOCK TABLES `CartProduct` WRITE;
+ LOCK TABLES `CartProduct` WRITE;
 INSERT INTO `CartProduct` (cartId,productId)
 values
 (1,1);
 
-UNLOCK TABLES; */
+UNLOCK TABLES;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
