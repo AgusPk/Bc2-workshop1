@@ -8,8 +8,8 @@ const authRoutes = require("./auth.router");
 /* Auth */
 router.post(`/auth`, authRoutes);
 
-router.use("/users", userRoutes);
 router.use("/cart", cartRouter);
+router.use("/users", userRoutes);
 router.use(`/product`, productRouter);
 router.use("/auth", authRoutes);
 
