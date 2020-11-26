@@ -1,5 +1,5 @@
 const userDao = require("../daos/user.dao");
-const { encryptPassword, hashPassword } = require("../utils/encrypt-hash");
+const { hashPassword } = require("../utils/encrypt-hash");
 
 const services = {
   getAll: async () => {
@@ -24,20 +24,20 @@ const services = {
 
     if (exists > 0) {
       throw {
-        status: 400,
+        badRequest: true,
         message: "Email is already in use, try again",
       };
     }
 
     // encryptamos la password
-    const passwordEncrypted = await encryptPassword(password);
+    const passwordEncrypted = await hashPassword(password);
 
     const user = [
-      email,
-      passwordEncrypted,
       userName,
       firstName,
       lastName,
+      email,
+      passwordEncrypted,
       role,
     ];
 

@@ -11,6 +11,11 @@ const userDao = {
     return query(sql, id);
   },
 
+  getOneForEmail: (email) => {
+    const sql = `select email, firstName, userName, lastName, role, password, createdAt from User where email = ?`;
+    return query(sql, email);
+  },
+
   signUp: (user) => {
     const sql = `INSERT INTO User (userName, firstName,
       lastName, email, password, role) 

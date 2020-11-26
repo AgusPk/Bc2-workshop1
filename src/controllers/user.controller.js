@@ -56,8 +56,12 @@ const controllers = {
         role,
       });
 
-      res.stasus(201).json(userCreated);
+      res.status(201).json(userCreated);
     } catch (err) {
+      if (err.badRequest) {
+        return res.status(400).send(err.message);
+      }
+
       next(err);
     }
   },

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `firstName` VARCHAR(255) NULL,
   `lastName` VARCHAR(255) NULL,
   `email` VARCHAR(100) NULL,
-  `password` VARCHAR(20) NULL,
+  `password` VARCHAR(100) NULL,
   `role` VARCHAR(20) NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))

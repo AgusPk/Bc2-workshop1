@@ -9,6 +9,9 @@ const mainDBRepository = require("./src/repositories/main.repository");
 mainDBRepository.connect();
 app.mainDBRepository = mainDBRepository;
 
+// set enviroment variables
+require("dotenv").config();
+
 // Enable cors for public access
 app.use(cors());
 
