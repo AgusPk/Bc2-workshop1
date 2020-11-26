@@ -17,9 +17,11 @@ class cartService {
     return { isActive, cartStateResult, createActiveCart };
   }
 
-  static async deleteCart(cartId) {
-    const deleteCartResponse = await cartDao.deleteCart(cartId);
-    console.log(deleteCartResponse);
+  static async deleteCart({ cartId, userId }) {
+    const deleteCartResponse = await cartDao.deleteCart({
+      cartId,
+      userId,
+    });
     return deleteCartResponse;
   }
 

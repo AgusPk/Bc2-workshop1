@@ -7,15 +7,12 @@ class cartDao {
   }
 
   static createActiveCart(newCart) {
-    const lastIdQuery = `SELEC LAST_INSERT_ID()`;
-    const newObj = { ...newCart, lastIdQuery };
-
-    const createActiveQuery = `INSERT INTO Cart (userId,estado,id) values (?)`;
-    return query(createActiveQuery, newObj);
+    const createActiveQuery = `INSERT INTO Cart (userId,estado) values (?)`;
+    return query(createActiveQuery, newCart);
   }
 
-  static deleteCart(id) {
-    const sql = `DELETE FROM Cart WHERE id = ?`;
+  static deleteCart({ cartId, userId }) {
+    const sql = `DELETE FROM Cart WHERE id = ${cartId} AND userId = ${userId} AND estado = "activo" `;
     return query(sql, id);
   }
 

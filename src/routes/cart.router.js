@@ -11,5 +11,6 @@ router.delete("/:cartId", cartController.deleteCart);
 //   "/:id/productos/:idProducto",
 //   cartController.deleteProductosInCart
 // );
+router.get("/getAllCarts", cartController.getAllCarts);
 
 module.exports = router;

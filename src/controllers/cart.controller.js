@@ -13,8 +13,12 @@ class cartController {
   static async deleteCart(req, res) {
     try {
       const { cartId } = req.params;
-      const deleteCart = await cartService.deleteCart(cartId);
-      console.log(deleteCart);
+      const userId = 1;
+      const deleteCart = await cartService.deleteCart({
+        cartId,
+        userId,
+      });
+      if (deleteCart.affectedRows === 0) return res.status(400).send({});
       return res.status(200).send(deleteCart);
     } catch (err) {
       return res.send(err);
