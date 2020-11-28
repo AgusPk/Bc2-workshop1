@@ -19,7 +19,7 @@ const userDao = {
   signUp: (user) => {
     const sql = `INSERT INTO User (userName, firstName,
       lastName, email, password, role) 
-        values (?, ?, ?, ?, ?, ?)`;
+        values (?, ?, ?, ?, ?, ?) `;
 
     return query(sql, user);
   },

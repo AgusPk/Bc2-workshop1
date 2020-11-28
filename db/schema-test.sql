@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `firstName` VARCHAR(255) NULL,
   `lastName` VARCHAR(255) NULL,
   `email` VARCHAR(100) NULL,
-  `password` VARCHAR(100) NULL,
+  `password` VARCHAR(255) NULL,
   `role` VARCHAR(20) NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
@@ -73,6 +73,12 @@ ENGINE = InnoDB;
 INSERT INTO `Product` (id,categoria,nombre,cantidad,descripcion)
 values
 (1,'Perfumeria','Axe',2,'Desodorante');
+INSERT INTO `Product` (id,categoria,nombre,cantidad,descripcion)
+values
+(2,'Perfumeria','Dove',1,'Desodorante');
+INSERT INTO `Product` (id,categoria,nombre,cantidad,descripcion)
+values
+(3,'Alamcen','Playadito',1,'Yerba Mate');
 
 UNLOCK TABLES; 
 
@@ -80,8 +86,7 @@ CREATE TABLE IF NOT EXISTS `CartProduct` (
   `cartId` INT NOT NULL,
   `productId` INT NOT NULL,
   FOREIGN KEY (`cartId`) REFERENCES Cart(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`productId`) REFERENCES Product(`id`),
-  PRIMARY KEY (`cartId`,`productId`))
+  FOREIGN KEY (`productId`) REFERENCES Product(`id`))
 ENGINE = InnoDB;
 
  LOCK TABLES `CartProduct` WRITE;
