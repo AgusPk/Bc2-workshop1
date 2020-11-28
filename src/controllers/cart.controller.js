@@ -74,7 +74,7 @@ class cartController {
 
   static async postProductosInCart(req, res) {
     try {
-      const { cartId, productId } = req.params;
+      const { cartId, productId, userId } = req.params;
 
       const postProductosInCart = await cartService.postProductosInCart({
         cartId,

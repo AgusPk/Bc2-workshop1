@@ -51,8 +51,7 @@ class cartService {
     return getProductosInCart;
   }
 
-  static async postProductosInCart({ cartId, productId }) {
-    const userId = 7;
+  static async postProductosInCart({ cartId, productId, userId }) {
     const postProductosInCart = await cartDao.postProductosInCart({
       cartId,
       productId,
