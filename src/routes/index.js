@@ -6,7 +6,6 @@ const cartRouter = require("./cart.router");
 const authRoutes = require("./auth.router");
 
 /* Auth */
-router.post(`/auth`, authRoutes);
 
 router.use("/cart", cartRouter);
 router.use("/users", userRoutes);

@@ -1,0 +1,12 @@
+[
+  {
+    "group": "admin",
+    "permissions": [
+      {
+        "resource": "users/*",
+        "methods": ["POST"],
+        "action": "allow"
+      }
+    ]
+  }
+]

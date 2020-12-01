@@ -6,14 +6,19 @@ class cartDao {
     return query(checkActiveQuery, userId);
   }
 
-  static createActiveCart(newCart) {
-    const createActiveQuery = `INSERT INTO Cart (userId,estado) values (?)`;
-    return query(createActiveQuery, newCart);
+  static createActiveCart({ userId, estado }) {
+    const createActiveQuery = `INSERT INTO Cart (userId,estado) values (? , ?)`;
+    return query(createActiveQuery, [userId, estado]);
   }
 
   static deleteCart({ cartId, userId }) {
-    const sql = `DELETE FROM Cart WHERE id = ${cartId} AND userId = ${userId} AND estado = "activo" `;
-    return query(sql, id);
+    const sql = `DELETE FROM Cart WHERE id = ? AND userId = ? AND estado = "activo"`;
+    return query(sql, [cartId, userId]);
+  }
+
+  static getById(cartId) {
+    const sql = `SELECT * FROM Cart WHERE id = ?`;
+    return query(sql, [cartId]);
   }
 
   static getAll() {
@@ -21,82 +26,35 @@ class cartDao {
     return query(sql);
   }
 
-  // static update(invoiceId, id, price, units, discount, description, createdAt) {
-  //   let filters = "";
-  //   const queryParams = [];
-  //   let fields = 0;
+  static updateCart({ cartId }) {
+    const sqlCart = "UPDATE Cart SET estado='cerrado' WHERE id = ?";
+    return query(sqlCart, [cartId]);
+  }
 
-  //   if (invoiceId) {
-  //     filters += `invoiceId = ?`;
-  //     queryParams.push(invoiceId);
+  static getProductosInCart({ cartId }) {
+    const sqlCart =
+      "SELECT * from CartProduct INNER JOIN Product ON (Product.id = CartProduct.productId) WHERE cartId = ? ";
+    return query(sqlCart, [cartId]);
+  }
 
-  //     fields++;
-  //   }
+  static async postProductosInCart({ cartId, productId, userId }) {
+    const sqlCheckCartState =
+      "SELECT * FROM Cart WHERE id = ? AND userId = ? AND estado='activo' ";
+    const sqlCheckCartProduct = "SELECT * FROM CartProduct WHERE cartId = ? ";
+    const sqlCheckProduct = "SELECT * FROM Product WHERE id = ?";
+    const activeCart = await query(sqlCheckCartState, [cartId, userId]);
+    const cartProduct = await query(sqlCheckCartProduct, [cartId]);
+    const checkProduct = await query(sqlCheckProduct, [productId]);
 
-  //   if (id) {
-  //     if (fields > 0) filters += `,`;
+    return { activeCart: activeCart[0], product: checkProduct[0], cartProduct };
+  }
 
-  //     filters += `id = ?`;
-  //     queryParams.push(id);
+  static async postInPivot({ cartId, productId }) {
+    const sqlPostInPivot = `INSERT INTO CartProduct (cartId,productId) values (? , ?)`;
+    const cartProduct = await query(sqlPostInPivot, [cartId, productId]);
 
-  //     fields++;
-  //   }
-  //   if (units) {
-  //     if (fields > 0) filters += `,`;
-
-  //     filters += `units = ?`;
-  //     queryParams.push(units);
-
-  //     fields++;
-  //   }
-
-  //   if (discount) {
-  //     if (fields > 0) filters += `,`;
-
-  //     filters += `discount = ?`;
-  //     queryParams.push(discount);
-
-  //     fields++;
-  //   }
-
-  //   if (price) {
-  //     if (fields > 0) filters += `,`;
-
-  //     filters += `price = ?`;
-  //     queryParams.push(price);
-
-  //     fields++;
-  //   }
-
-  //   if (description) {
-  //     if (fields > 0) filters += `,`;
-
-  //     filters += `description = ?`;
-  //     queryParams.push(description);
-
-  //     fields++;
-  //   }
-
-  //   let sql = `UPDATE item SET ${filters} WHERE id = ?`;
-
-  //   queryParams.push(id);
-
-  //   return query(sql, queryParams);
-  // }
-  // static exists(value, field) {
-  //   const sql = `SELECT COUNT(*) AS 'exists' FROM Item WHERE ${field} = ?`;
-  //   return query(sql, value);
-  // }
-
-  // static existsInvoice(value, field) {
-  //   const sql = `SELECT COUNT(*) AS 'exists' FROM Item WHERE ${field} = ?`;
-  //   return query(sql, value);
-  // }
-
-  // static get(id) {
-  //   const sql = `SELECT * FROM Item WHERE id = ?`;
-  //   return query(sql, id);
-  // }
+    return cartProduct;
+  }
 }
 
 module.exports = cartDao;
