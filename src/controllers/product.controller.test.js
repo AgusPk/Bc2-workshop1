@@ -29,11 +29,14 @@ describe("product Controller", () => {
 
     test("it sends the response from the service", async () => {
       mock = ["axe", "coca cola"];
+
       sendMock.mockImplementation(() => mock);
+
       productService.getProduct.mockImplementation(() => mock);
       await productController.getProduct(req, res);
       expect(sendMock).toHaveBeenCalledWith(mock);
     });
+    
   });
   describe("create product method", () => {
     test("it throws a status 201 when product created", async () => {

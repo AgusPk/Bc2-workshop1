@@ -26,6 +26,16 @@ class productController {
 
   static async createProduct(req, res) {
     const { categoria, nombre, cantidad, descripcion } = req.body;
+
+    if (
+      isNaN(parseInt(cantidad)) ||
+      typeof categoria !== "string" ||
+      typeof nombre !== "string" ||
+      typeof descripcion !== "string"
+    ) {
+      return res.status(400).send();
+    }
+
     try {
       const product = await productService.createProduct(
         categoria,
