@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
-const LLAVE_SECRETA = process.env.JWT_KEY;
 
 exports.validateAutentication = (req, res, next) => {
+  const LLAVE_SECRETA = process.env.JWT_KEY;
+
   try {
     if (!req.headers.authorization) {
       return res.status(401).json({
@@ -18,9 +19,10 @@ exports.validateAutentication = (req, res, next) => {
         message: "Authorization token missing",
       });
     }
-
-    jwt.verify(token, LLAVE_SECRETA, (err, decode) => {
+    console.log('el token en el middleware', LLAVE_SECRETA)
+    jwt.verify(token,  LLAVE_SECRETA, (err, decode) => {
       if (err) {
+        console.log(err)
         return res.status(401).json({
           status: 401,
           message: "Invalid token",

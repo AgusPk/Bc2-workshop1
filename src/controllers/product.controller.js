@@ -4,9 +4,10 @@ class productController {
   static async getProduct(req, res) {
     try {
       const { category } = req.query;
-      const products = await productService.getProduct();
+      const products = await productService.getProduct(category);
       return res.status(200).send(products);
     } catch (error) {
+      console.log(error)
       return res.status(500).send(error);
     }
   }
@@ -25,6 +26,16 @@ class productController {
 
   static async createProduct(req, res) {
     const { categoria, nombre, cantidad, descripcion } = req.body;
+
+    if (
+      isNaN(parseInt(cantidad)) ||
+      typeof categoria !== "string" ||
+      typeof nombre !== "string" ||
+      typeof descripcion !== "string"
+    ) {
+      return res.status(400).send();
+    }
+
     try {
       const product = await productService.createProduct(
         categoria,
@@ -32,8 +43,9 @@ class productController {
         cantidad,
         descripcion
       );
-      return res.status(200).send(product);
+      return res.status(201).send(product);
     } catch (error) {
+      console.log(error)
       return res.status(500).send(error);
     }
   }
