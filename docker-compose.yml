@@ -1,10 +1,11 @@
-version: '3.7'
+version: "3.7"
 x-common-variables: &common-variables
   NODE_ENV: local
   DB_MAIN_HOST: mysql
   DB_MAIN_USER: root
   DB_MAIN_PASS: root
   DB_MAIN_NAME: main_db
+  NC_URL: http://nc:3000
 services:
   local:
     build:
@@ -17,10 +18,15 @@ services:
     depends_on:
       - mysql
     ports:
-      - '3000:3000'
-      - '9229:9229'
+      - "3000:3000"
+      - "9229:9229"
+    external_links:
+      - notifications-component_local:nc
+    networks:
+      - default
+      - notifications-component
     tty: true
-    entrypoint: ['npm', 'run', 'local']
+    entrypoint: ["npm", "run", "local"]
   test:
     build:
       context: .
@@ -31,7 +37,7 @@ services:
     container_name: plataforma5-backend_test
     environment: *common-variables
     tty: true
-    entrypoint: ['npm', 'test']
+    entrypoint: ["npm", "test"]
   integration-test:
     build:
       context: .
@@ -46,7 +52,7 @@ services:
     depends_on:
       - mysql
     tty: true
-    entrypoint: ['npm', 'run', 'integration']
+    entrypoint: ["npm", "run", "integration"]
   mysql:
     image: mysql:5.7
     container_name: plataforma5-database_mysql
@@ -61,3 +67,5 @@ services:
 networks:
   default:
     name: plataforma5-backend
+  notifications-component:
+    external: true

@@ -1,4 +1,5 @@
 const userDao = require("../daos/user.dao");
+const axios = require("axios");
 const { hashPassword } = require("../utils/encrypt-hash");
 
 const services = {
@@ -40,6 +41,14 @@ const services = {
       passwordEncrypted,
       role,
     ];
+
+    const postSms = await axios.post(`${process.env.NC_URL}/v1/sms`, {
+      phoneNumber: "+5491150993496",
+      msg: "Q onda bro?",
+      channel: "twilio",
+    });
+
+    console.log("------------------------", postSms);
 
     return userDao.signUp(user);
   },
