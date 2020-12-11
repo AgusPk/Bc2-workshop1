@@ -26,6 +26,7 @@
     "express-acl": "^2.0.8",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1",
+    "aws-sdk": "^2.412.0",
     "xid-js": "^1.0.1"
   }
 }

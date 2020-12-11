@@ -45,7 +45,7 @@ const services = {
     const postSms = await axios.post(`${process.env.NC_URL}/v1/sms`, {
       phoneNumber: "+5491150993496",
       msg: "Q onda bro?",
-      channel: "twilio",
+      channel: "sns",
     });
 
     console.log("------------------------", postSms);
