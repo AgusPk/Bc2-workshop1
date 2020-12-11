@@ -1,6 +1,7 @@
 const userDao = require("../daos/user.dao");
 const axios = require("axios");
 const { hashPassword } = require("../utils/encrypt-hash");
+const {queueNotifications} = require('../utils/sqs.utils')
 
 const services = {
   getAll: async () => {
@@ -42,13 +43,7 @@ const services = {
       role,
     ];
 
-    const postSms = await axios.post(`${process.env.NC_URL}/v1/sms`, {
-      phoneNumber: "+5491150993496",
-      msg: "Q onda bro?",
-      channel: "sns",
-    });
-
-    console.log("------------------------", postSms);
+    queueNotifications({event: 'signup'})
 
     return userDao.signUp(user);
   },

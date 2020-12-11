@@ -64,7 +64,7 @@ services:
       MYSQL_USER: test
       MYSQL_PASSWORD: testpass
   localstack:
-    image: localstack/localstack
+    image:  localstack/localstack:0.11.4
     container_name: plataforma5_localstack
     ports:
       - "4568-4576:4568-4576"
