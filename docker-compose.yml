@@ -7,7 +7,7 @@ x-common-variables: &common-variables
   DB_MAIN_NAME: main_db
   AWS_ACCESS_KEY_ID: anykey
   AWS_SECRET_ACCESS_KEY: anysecret
-  AWS_REGION: us-east-2
+  AWS_REGION: us-east-1
 services:
   local:
     build:
@@ -64,7 +64,7 @@ services:
       MYSQL_USER: test
       MYSQL_PASSWORD: testpass
   localstack:
-    image:  localstack/localstack:0.11.4
+    image: localstack/localstack:0.11.4
     container_name: plataforma5_localstack
     ports:
       - "4568-4576:4568-4576"
@@ -78,7 +78,7 @@ services:
     environment:
       - AWS_ACCESS_KEY_ID=AKIAEXAMPLE123
       - AWS_SECRET_ACCESS_KEY=AWSSECRETACCESSEY123
-      - AWS_DEFAULT_REGION=us-east-2
+      - AWS_DEFAULT_REGION=us-east-1
     entrypoint: /bin/sh -c
     command: >
       "
@@ -95,4 +95,3 @@ services:
 networks:
   default:
     name: plataforma5-backend
-

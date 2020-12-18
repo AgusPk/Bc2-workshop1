@@ -11,7 +11,7 @@ app.mainDBRepository = mainDBRepository;
 // set enviroment variables
 require("dotenv").config();
 
-// Enable cors for public access
+// Enable cors for public accekjss
 app.use(cors());
 
 // JSON parsing
@@ -23,13 +23,11 @@ app.use(
     extended: true,
   })
 );
-
 // Remove express header
 app.use((req, res, next) => {
   res.removeHeader("X-Powered-By");
   next();
 });
-
 // API requests routing
 app.use("/", router);
 

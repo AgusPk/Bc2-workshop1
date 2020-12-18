@@ -1,7 +1,7 @@
 const userDao = require("../daos/user.dao");
 const axios = require("axios");
 const { hashPassword } = require("../utils/encrypt-hash");
-const {queueNotifications} = require('../utils/sqs.utils')
+const { queueNotifications } = require("../utils/sqs.utils");
 
 const services = {
   getAll: async () => {
@@ -43,7 +43,7 @@ const services = {
       role,
     ];
 
-    queueNotifications({event: 'signup'})
+    queueNotifications({ event: "signup" });
 
     return userDao.signUp(user);
   },

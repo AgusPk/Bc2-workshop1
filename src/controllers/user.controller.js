@@ -38,7 +38,6 @@ const controllers = {
 
   create: async (req, res, next) => {
     const { userName, firstName, lastName, email, password, role } = req.body;
-
     if (!userName || !email || !password) {
       return res.status(400).json({
         status: 400,
